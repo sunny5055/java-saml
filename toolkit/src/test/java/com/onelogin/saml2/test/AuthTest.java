@@ -555,7 +555,7 @@ public class AuthTest {
 		when(request.getSession()).thenReturn(session);
 		String relayState = "http://localhost:8080/expected.jsp";
 		String samlRequestEncoded = Util.getFileAsString("data/logout_requests/logout_request_deflated.xml.base64");
-		Map<String, String[]> paramsAsArray = new HashMap<>();
+		Map<String, String[]> paramsAsArray = new HashMap<String, String[]>();
 		paramsAsArray.put("SAMLRequest", new String[]{samlRequestEncoded});
 		paramsAsArray.put("RelayState", new String[]{relayState});
 		when(request.getParameterMap()).thenReturn(paramsAsArray);

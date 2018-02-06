@@ -596,7 +596,7 @@ public class SettingBuilderTest {
 	 */
 	@Test
 	public void testLoadFromValues() throws Exception {
-		Map<String, Object> samlData = new LinkedHashMap<>();
+		Map<String, Object> samlData = new LinkedHashMap<String, Object>();
 		
 		samlData.put(STRICT_PROPERTY_KEY, "true");
 		
@@ -692,7 +692,7 @@ public class SettingBuilderTest {
 		assertTrue(setting.getWantAssertionsEncrypted());
 		assertTrue(setting.getWantNameIdEncrypted());
 
-		List<String> reqAuthContext = new ArrayList<>();
+		List<String> reqAuthContext = new ArrayList<String>();
 		reqAuthContext.add("urn:oasis:names:tc:SAML:2.0:ac:classes:urn:oasis:names:tc:SAML:2.0:ac:classes:Password");
 		assertEquals(reqAuthContext, setting.getRequestedAuthnContext());
 		assertEquals("exact", setting.getRequestedAuthnContextComparison());
@@ -727,7 +727,7 @@ public class SettingBuilderTest {
 	 */
 	@Test
 	public void testLoadFromValuesWithObjects() throws Exception {
-		Map<String, Object> samlData = new LinkedHashMap<>();
+		Map<String, Object> samlData = new LinkedHashMap<String, Object>();
 		
 		samlData.put(STRICT_PROPERTY_KEY, true);
 		
@@ -815,7 +815,7 @@ public class SettingBuilderTest {
 		assertTrue(setting.getWantAssertionsEncrypted());
 		assertTrue(setting.getWantNameIdEncrypted());
 
-		List<String> reqAuthContext = new ArrayList<>();
+		List<String> reqAuthContext = new ArrayList<String>();
 		reqAuthContext.add("urn:oasis:names:tc:SAML:2.0:ac:classes:urn:oasis:names:tc:SAML:2.0:ac:classes:Password");
 		assertEquals(reqAuthContext, setting.getRequestedAuthnContext());
 		assertEquals("exact", setting.getRequestedAuthnContextComparison());

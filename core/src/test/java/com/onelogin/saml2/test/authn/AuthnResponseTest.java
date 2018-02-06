@@ -1803,7 +1803,7 @@ public class AuthnResponseTest {
 		final int jobCount = 100;
 		final int threadCount = 5;
 		final ExecutorService executor = Executors.newFixedThreadPool(threadCount);
-		final List<Throwable> errors = new CopyOnWriteArrayList<>();
+		final List<Throwable> errors = new CopyOnWriteArrayList<Throwable>();
 		final AtomicInteger successCount = new AtomicInteger();
 
 		// when

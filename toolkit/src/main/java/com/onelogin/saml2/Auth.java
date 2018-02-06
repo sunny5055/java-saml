@@ -858,9 +858,15 @@ public class Auth {
 
 		 try {
 			signature = Util.base64encoder(Util.sign(msg, key, signAlgorithm));
-		} catch (InvalidKeyException | NoSuchAlgorithmException | SignatureException e) {
+		} catch (InvalidKeyException e) {
 			String errorMsg = "buildSignature error." + e.getMessage();
 			LOGGER.error(errorMsg);
+		 } catch (NoSuchAlgorithmException e) {
+			 String errorMsg = "buildSignature error." + e.getMessage();
+			 LOGGER.error(errorMsg);
+		 } catch (SignatureException e) {
+			 String errorMsg = "buildSignature error." + e.getMessage();
+			 LOGGER.error(errorMsg);
 		}
 
 		 if (signature.isEmpty()) {

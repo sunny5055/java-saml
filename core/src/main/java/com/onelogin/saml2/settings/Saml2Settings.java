@@ -67,7 +67,7 @@ public class Saml2Settings {
 	private boolean wantNameId = true;
 	private boolean wantNameIdEncrypted = false;
 	private boolean signMetadata = false;
-	private List<String> requestedAuthnContext = new ArrayList<>();
+	private List<String> requestedAuthnContext = new ArrayList<String>();
 	private String requestedAuthnContextComparison = "exact";
 	private boolean wantXMLValidation = true;
 	private String signatureAlgorithm = Constants.RSA_SHA1;
@@ -78,7 +78,7 @@ public class Saml2Settings {
 	private boolean compressResponse = true;
 
 	// Misc
-	private List<Contact> contacts = new LinkedList<>();
+	private List<Contact> contacts = new LinkedList<Contact>();
 	private Organization organization = null;
 
 	private boolean spValidationOnly = false;
@@ -763,7 +763,7 @@ public class Saml2Settings {
 	 * @return errors found on the settings data
 	 */
 	public List<String> checkSettings() {
-		List<String> errors = new ArrayList<>(this.checkSPSettings());
+		List<String> errors = new ArrayList<String>(this.checkSPSettings());
 		if (!spValidationOnly) { 
 			errors.addAll(this.checkIdPSettings());
 		}
@@ -777,7 +777,7 @@ public class Saml2Settings {
 	 * @return errors found on the IdP settings data
 	 */
 	public List<String> checkIdPSettings() {
-		List<String> errors = new ArrayList<>();
+		List<String> errors = new ArrayList<String>();
 		String errorMsg;
 
 		if (!checkRequired(getIdpEntityId())) {
@@ -813,7 +813,7 @@ public class Saml2Settings {
 	 * @return errors found on the SP settings data
 	 */
 	public List<String> checkSPSettings() {
-		List<String> errors = new ArrayList<>();
+		List<String> errors = new ArrayList<String>();
 		String errorMsg;
 
 		if (!checkRequired(getSpEntityId())) {
@@ -976,7 +976,7 @@ public class Saml2Settings {
 
 		Document metadataDocument = Util.loadXML(metadataString);
 
-		List<String> errors = new ArrayList<>();
+		List<String> errors = new ArrayList<String>();
 
 		if (!Util.validateXML(metadataDocument, SchemaFactory.SAML_SCHEMA_METADATA_2_0)) {
 			errors.add("Invalid SAML Metadata. Not match the saml-schema-metadata-2.0.xsd");

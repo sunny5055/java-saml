@@ -34,7 +34,7 @@ public class ServletUtils {
     public static HttpRequest makeHttpRequest(HttpServletRequest req) {
     	@SuppressWarnings("unchecked")
         final Map<String, String[]> paramsAsArray = (Map<String, String[]>) req.getParameterMap();
-        final Map<String, List<String>> paramsAsList = new HashMap<>();
+        final Map<String, List<String>> paramsAsList = new HashMap<String, List<String>>();
         for (Map.Entry<String, String[]> param : paramsAsArray.entrySet()) {
             paramsAsList.put(param.getKey(), Arrays.asList(param.getValue()));
         }

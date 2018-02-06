@@ -134,7 +134,7 @@ public class HttpRequestTest {
         final String url = "url";
         final String queryString = "k1=v1&k2=v2&k3=v3";
 
-        final Map<String, List<String>> parametersMap = new HashMap<>();
+        final Map<String, List<String>> parametersMap = new HashMap<String, List<String>>();
         final HttpRequest request = new HttpRequest(url, parametersMap, queryString);
 
         assertThat(request.getEncodedParameter("k1"), equalTo("v1"));
@@ -170,7 +170,7 @@ public class HttpRequestTest {
         String encodedValue1 = NaiveUrlEncoder.encode(value1);
         final String queryString = name + "=" + encodedValue1;
 
-        final Map<String, List<String>> parametersMap = new HashMap<>();
+        final Map<String, List<String>> parametersMap = new HashMap<String, List<String>>();
         final HttpRequest request = new HttpRequest(url, parametersMap, queryString).addParameter(name, value1);
 
         assertThat(request.getEncodedParameter(name), equalTo(encodedValue1));

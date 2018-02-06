@@ -38,7 +38,7 @@ public class SettingsBuilder {
 	/**
 	 * Private property that contains the SAML settings
 	 */
-	private Map<String, Object> samlData = new LinkedHashMap<>();
+	private Map<String, Object> samlData = new LinkedHashMap<String, Object>();
 
 	/**
 	 * Saml2Settings object
@@ -118,21 +118,26 @@ public class SettingsBuilder {
 	public SettingsBuilder fromFile(String propFileName) throws Error {
 
 		ClassLoader classLoader = getClass().getClassLoader();
-		try (InputStream inputStream = classLoader.getResourceAsStream(propFileName)) {
-			if (inputStream != null) {
+		InputStream inputStream = null;
+		try {
+			inputStream = classLoader.getResourceAsStream(propFileName);
 				Properties prop = new Properties();
 				prop.load(inputStream);
 				parseProperties(prop);
 				LOGGER.debug("properties file '{}' loaded succesfully", propFileName);
-			} else {
-				String errorMsg = "properties file '" + propFileName + "' not found in the classpath";
-				LOGGER.error(errorMsg);
-				throw new Error(errorMsg, Error.SETTINGS_FILE_NOT_FOUND);
-			}
+
 		} catch (IOException e) {
 			String errorMsg = "properties file'" + propFileName + "' cannot be loaded.";
 			LOGGER.error(errorMsg, e);
 			throw new Error(errorMsg, Error.SETTINGS_FILE_NOT_FOUND);
+		} finally {
+			if (inputStream != null) {
+				try {
+					inputStream.close();
+				} catch (IOException e) {
+					// ignore
+				}
+			}
 		}
 		
 		return this;
@@ -154,7 +159,7 @@ public class SettingsBuilder {
 	/**
 	 * Loads the settings from mapped values. 
 	 *
-	 * @param values
+	 * @param samlData
 	 *            Mapped values. 
 	 *
 	 * @return the SettingsBuilder object with the settings loaded from the prop object
@@ -358,7 +363,7 @@ public class SettingsBuilder {
 	 * Loads the contacts settings from the properties file
 	 */
 	private List<Contact> loadContacts() {
-		List<Contact> contacts = new LinkedList<>();
+		List<Contact> contacts = new LinkedList<Contact>();
 
 		String technicalGn = loadStringProperty(CONTACT_TECHNICAL_GIVEN_NAME);
 		String technicalEmailAddress = loadStringProperty(CONTACT_TECHNICAL_EMAIL_ADDRESS);

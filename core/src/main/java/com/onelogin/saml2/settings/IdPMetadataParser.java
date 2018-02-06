@@ -1,5 +1,6 @@
 package com.onelogin.saml2.settings;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.LinkedHashMap;
@@ -50,7 +51,7 @@ public class IdPMetadataParser {
 	 * @throws XPathExpressionException
 	 */
 	public static Map<String, Object> parseXML(Document xmlDocument, String entityId, String desiredNameIdFormat, String desiredSSOBinding, String desiredSLOBinding) throws XPathException {
-		Map<String, Object> metadataInfo = new LinkedHashMap<>();
+		Map<String, Object> metadataInfo = new LinkedHashMap<String, Object>();
 
 		try {
 			String customIdPStr = "";
@@ -188,17 +189,23 @@ public class IdPMetadataParser {
 	 */
 	public static Map<String, Object> parseFileXML(String xmlFileName, String entityId, String desiredNameIdFormat, String desiredSSOBinding, String desiredSLOBinding) throws Exception {
 		ClassLoader classLoader = IdPMetadataParser.class.getClassLoader();
-		try (InputStream inputStream = classLoader.getResourceAsStream(xmlFileName)) {
-			if (inputStream != null) {
-				Document xmlDocument = Util.parseXML(new InputSource(inputStream));
-				return parseXML(xmlDocument, entityId, desiredNameIdFormat, desiredSSOBinding, desiredSLOBinding);
-			} else {
-				throw new Exception("XML file '" + xmlFileName + "' not found in the classpath");
-			}
-		} catch (Exception e) {
+		InputStream inputStream = null;
+		try {
+			inputStream = classLoader.getResourceAsStream(xmlFileName);
+			Document xmlDocument = Util.parseXML(new InputSource(inputStream));
+			return parseXML(xmlDocument, entityId, desiredNameIdFormat, desiredSSOBinding, desiredSLOBinding);
+		} catch (Exception e){
 			String errorMsg = "XML file'" + xmlFileName + "' cannot be loaded." + e.getMessage();
 			LOGGER.error(errorMsg, e);
 			throw new Error(errorMsg, Error.SETTINGS_FILE_NOT_FOUND);
+		} finally {
+			if (inputStream != null) {
+				try {
+					inputStream.close();
+				} catch (IOException e) {
+					// ignore
+				}
+			}
 		}
 	}
 

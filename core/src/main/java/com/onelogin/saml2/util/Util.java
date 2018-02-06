@@ -298,7 +298,7 @@ public final class Util {
 	/**
 	 * Parse an XML from input source to a Document object
 	 *
-	 * @param xmlStr
+	 * @param inputSource
 	 * 				The XML string which should be converted
 	 *
 	 * @return the Document object
@@ -505,8 +505,10 @@ public final class Util {
 		
 		try {
 			cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(
-				new ByteArrayInputStream(certString.getBytes(StandardCharsets.UTF_8)));
+				new ByteArrayInputStream(certString.getBytes("UTF-8")));
 		} catch (IllegalArgumentException e){
+			cert = null;
+		} catch (UnsupportedEncodingException e) {
 			cert = null;
 		}
 		return cert;
@@ -874,7 +876,7 @@ public final class Util {
 	 * Validate the signature pointed to by the xpath
 	 *
 	 * @param doc The document we should validate
-	 * @param certs The public certificates
+	 * @param certList The public certificates
 	 * @param fingerprint The fingerprint of the public certificate
 	 * @param alg The signature algorithm method
 	 * @param xpath the xpath of the ds:Signture node to validate

@@ -338,7 +338,7 @@ public class SamlResponse {
 	 * @throws ValidationError
 	 */
 	private void validateSubjectConfirmation(String responseInResponseTo) throws XPathExpressionException, ValidationError {
-		final List<SubjectConfirmationIssue> validationIssues = new ArrayList<>();
+		final List<SubjectConfirmationIssue> validationIssues = new ArrayList<SubjectConfirmationIssue>();
 		boolean validSubjectConfirmation = false;
 		NodeList subjectConfirmationNodes = this.queryAssertion("/saml:Subject/saml:SubjectConfirmation");
 		for (int i = 0; i < subjectConfirmationNodes.getLength(); i++) {
@@ -770,7 +770,7 @@ public class SamlResponse {
 	 */
 	public List<Instant> getAssertionNotOnOrAfter() throws XPathExpressionException {
 		final NodeList notOnOrAfterNodes = queryAssertion("/saml:Subject/saml:SubjectConfirmation/saml:SubjectConfirmationData");
-		final ArrayList<Instant> notOnOrAfters = new ArrayList<>();
+		final ArrayList<Instant> notOnOrAfters = new ArrayList<Instant>();
 		for (int i = 0; i < notOnOrAfterNodes.getLength(); i++) {
 			final Node notOnOrAfterAttribute = notOnOrAfterNodes.item(i).getAttributes().getNamedItem("NotOnOrAfter");
 			if (notOnOrAfterAttribute != null) {
