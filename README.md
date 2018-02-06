@@ -12,6 +12,8 @@ We [introduced some incompatibilities](https://github.com/onelogin/java-saml/iss
 Version 1.1.2 is considered to be deprecated. If you have used it, we strongly recommend that you migrate to the new version. 
 We rebuilt the toolkit on 2.0.0, so code/settings that you had been using in the previous version will no longer be compatible.
 
+## Fork of official java-saml project by OneLogin to support Java 6
+Nothing changed except for missing diamond and multiple exceptions in one catch support in Java 6.
 
 ## Why add SAML support to my software?
 
